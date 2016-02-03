@@ -50,4 +50,12 @@ public class MongoDbAccessLayer {
                 .append("courseName", course.getCourseName())
                 .append("courseId", course.getCourseId());
     }
+
+    public long countDBEntryNumber() {
+        return db.getCollection(COLLECTION).count();
+    }
+
+    public void saveStudent(Student newStd) {
+        db.getCollection(COLLECTION).insertOne(getStudentInfo(newStd));
+    }
 }
