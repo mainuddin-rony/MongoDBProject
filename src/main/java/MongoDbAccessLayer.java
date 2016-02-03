@@ -1,11 +1,13 @@
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mongodb.client.model.Filters.eq;
 import static java.util.Arrays.asList;
 
 /**
@@ -57,5 +59,9 @@ public class MongoDbAccessLayer {
 
     public void saveStudent(Student newStd) {
         db.getCollection(COLLECTION).insertOne(getStudentInfo(newStd));
+    }
+
+    public FindIterable<Document> getStudentByName(String firstName) {
+        return db.getCollection(COLLECTION).find(eq("firstName", firstName));
     }
 }
